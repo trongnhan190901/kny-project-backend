@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
   "repository": {
@@ -18,9 +17,14 @@
   },
   "homepage": "https://github.com/trongnhan190901/kny-project-backend#readme",
   "dependencies": {
+    "axios": "^0.26.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "mongoose": "^6.3.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.1",
+    "plyr": "^3.6.12"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
