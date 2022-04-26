@@ -35,30 +35,4 @@ module.exports = {
 
         return res.send(document)
     },
-    update: async(req, res, next) => {
-        if (!req.body) {
-            return next(new BadRequestError(400,
-                "Data to update can not be empty"))
-        }
-
-        const conditions = {
-            _id: req.params.id,
-        }
-
-        const [err, document] = await handlePromise(
-            Contact.findOneAndUpdate(conditions, req.body, {
-                new: true
-            })
-        )
-        if (err) {
-            return next(new BadRequestError(500,
-                `Error updating contact with id ${req.params.id}`))
-        }
-
-        if (!document) {
-            return next(new BadRequestError(404, "Contact not found"))
-        }
-
-        return res.send({ message: 'Contact was update successfully' })
-    }
 }
