@@ -3,27 +3,6 @@ const handlePromise = require("../helpers/promise.helper")
 const Contact = require('../models/anime.model')
 
 module.exports = {
-    create: async(req, res, next) => {
-        if (!req.body.name) {
-            return next(new BadRequestError(400, "Name can not be empty"));
-        }
-
-        const contact = new Contact({
-            name: req.body.name,
-            email: req.body.email,
-            address: req.body.address,
-            phone: req.body.phone,
-            favorite: String(req.body.favorite).toLowerCase() === "true",
-        })
-
-        const [err, document] = await handlePromise(contact.save())
-
-        if (err) {
-            return next(new BadRequestError(500, "An Error has occurred while creating contact"))
-        }
-
-        return res.send(document)
-    },
     findAll: async(req, res, next) => {
         const conditions = {}
         const name = req.query.name
@@ -36,17 +15,6 @@ module.exports = {
 
         if (err) {
             return next(new BadRequestError(500, "An Error has occurred while creating contact"))
-        }
-
-        return res.send(documents)
-    },
-    findAllFavorite: async(req, res, next) => {
-        const [err, documents] = await handlePromise(
-            Contact.find({ favorite: true })
-        )
-
-        if (err) {
-            return next(new BadRequestError(500, "An error occurred while retrieving favorite contacts"))
         }
 
         return res.send(documents)
@@ -92,30 +60,5 @@ module.exports = {
         }
 
         return res.send({ message: 'Contact was update successfully' })
-    },
-    delete: async(req, res, next) => {
-        const conditions = {
-            _id: req.params.id,
-        }
-        const [err, document] = await handlePromise(
-            Contact.findOneAndDelete(conditions)
-        )
-
-        if (err) {
-            return next(new BadRequestError(404, "Contact not found"))
-        }
-
-        return res.send({ message: 'Contact was delete successfully' })
-    },
-    deleteAll: async(req, res, next) => {
-        const [err, data] = await handlePromise(
-            Contact.deleteMany({})
-        )
-        if (err) {
-            return next(new BadRequestError(500, "An error occurred while removing all contacts"))
-        }
-
-        return res.send({ message: `${data.deletedCount} contact were deleted successfully` })
-    },
-
+    }
 }

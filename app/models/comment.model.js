@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const schema = mongoose.Schema({
-    email: String,
-    password: String,
-    username: String
-})
+    name: String,
+    comment: String
+},{timestamps: true} )
 
 schema.method('toJSON', function() {
     const { __v, _id, ...objects } = this.toObject()
@@ -12,4 +11,4 @@ schema.method('toJSON', function() {
     return objects
 })
 
-module.exports = mongoose.model('user', schema)
+module.exports = mongoose.model('comment', schema)
